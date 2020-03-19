@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 
+
+//@Copyright Mac-de-Zak
+
 public class ReaderData {
 	
 	static String path = "/Users/mac/Desktop/PFE";
@@ -86,11 +89,9 @@ public class ReaderData {
 							path = ""+folder.getAbsolutePath()+ "/" + fileEntry.getName();
 							System.out.println(folder.getAbsolutePath()+ "/" + fileEntry.getName());
 						}
-							
 					}
 				}
 	    	}
 	  	}
-		
-
 }
+
