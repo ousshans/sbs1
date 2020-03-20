@@ -54,40 +54,55 @@ public class ReaderData {
 		//Commentaires
 		
 		while(scan.hasNext()) {
+			
+			
 			String requette;
-			switch (scan.next()) {
+			String next = scan.next();
+			String nextLine = scan.nextLine();
+			switch (next) {
 			case "#":
 				System.out.println("ceci sont des commentaires");
-				System.out.println("\t"+scan.nextLine());
+				System.out.println("\t"+nextLine);
+				break;
+			case "DEFINE":
+				System.out.println("ceci sont des variables");
+				System.out.println("\t"+nextLine);
 				break;
 				
 			case "display":
 				System.out.println("ceci sont des messages");
-				System.out.println("\t"+scan.next());
+				System.out.println("\t"+next);
 				break;
 				
 			case "UPDATE":
 			requette = "\tUPDATE ";
-				requette+=scan.nextLine();
+				requette+=nextLine;
 				System.out.println("requette sql update\n"+requette);
 					
 				break;
 				
 			case "INSERT":
-				requette = "\tUPDATE ";
-					requette+=scan.nextLine();
+				requette = "\tINSERT ";
+					requette+=nextLine;
 					System.out.println("requette sql update\n"+requette);
 						
 					break;
 					
 			case "DELETE":
-				requette = "\tUPDATE ";
-					requette+=scan.nextLine();
+				requette = "\tDELETE ";
+					requette+=nextLine;
 					System.out.println("requette sql update\n"+requette);
 						
 					break;
 				
+					
+			case "CALL":
+				requette = "\tCALL ";
+					requette+=nextLine;
+					System.out.println("Les fonctions appelés sont : \n"+requette);
+					break;
 			default:
+				//System.out.println("Rien trouvé\n");
 				break;
 			}
 		}
