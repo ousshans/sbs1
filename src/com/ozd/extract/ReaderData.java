@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 public class ReaderData {
 	
-	static String path = "/Users/mac/Desktop/PFE";
+	static String path = "F:\\WS\\Corona-time\\cbgescli";
 	//static String path = "/Users/mac/Desktop/PFE/cbgescli.4gl";
 
 	//static String path = "";
