@@ -5,13 +5,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
+import java.io.*;
+import java.util.regex.*;
+
+
+//@Copyright Mac-de-Zak
 
 public class ReaderData {
 	
-	static String path = "F:\\WS\\Corona-time\\cbgescli";
+	
+	
+	private static Pattern pattern_mot;
+    private static Matcher matcher_mot;
+
+        
+    
+	
+	static String path = "/Users/mac/Desktop/PFE";
 	//static String path = "/Users/mac/Desktop/PFE/cbgescli.4gl";
 
 	//static String path = "";
@@ -19,6 +33,14 @@ public class ReaderData {
 	static String temp = "";
 	
 	public static void main(String[] args) {
+        
+         
+        String regex_word = "[a-zA-Z0-9]{2,60}";
+        //String email ="salam56F";
+        Pattern pattern = Pattern.compile(regex_word);
+        /*Matcher matcher = pattern.matcher(email);
+        System.out.println(email +" : "+ matcher.matches());*/
+        
 		
 		System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
 		listFilesForFolder(folder);
@@ -33,24 +55,60 @@ public class ReaderData {
 		
 		while(scan.hasNext()) {
 			
-			switch (scan.next()) {
+			
+			String requette;
+			String next = scan.next();
+			String nextLine = scan.nextLine();
+			switch (next) {
 			case "#":
 				System.out.println("ceci sont des commentaires");
-				System.out.println("\t"+scan.nextLine());
+				System.out.println("\t"+nextLine);
+				break;
+			case "DEFINE":
+				System.out.println("ceci sont des variables");
+				System.out.println("\t"+nextLine);
 				break;
 				
 			case "display":
 				System.out.println("ceci sont des messages");
-				System.out.println("\t"+scan.next());
+				System.out.println("\t"+next);
 				break;
 				
+			case "UPDATE":
+			requette = "\tUPDATE ";
+				requette+=nextLine;
+				System.out.println("requette sql update\n"+requette);
+					
+				break;
+				
+			case "INSERT":
+				requette = "\tINSERT ";
+					requette+=nextLine;
+					System.out.println("requette sql update\n"+requette);
+						
+					break;
+					
+			case "DELETE":
+				requette = "\tDELETE ";
+					requette+=nextLine;
+					System.out.println("requette sql update\n"+requette);
+						
+					break;
+				
+					
+			case "CALL":
+				requette = "\tCALL ";
+					requette+=nextLine;
+					System.out.println("Les fonctions appelés sont : \n"+requette);
+					break;
 			default:
+				//System.out.println("Rien trouvé\n");
 				break;
 			}
 		}
 		measureTime("Files.readAllLines()", ReaderData::readAllLines, path);
 	}
-		
+	
 		private static void measureTime(String name, Function<String, List<String>> fn, String path) {
 	        System.out.println("-----------------------------------------------------------");
 	        System.out.println("run: " + name);
@@ -86,11 +144,16 @@ public class ReaderData {
 							path = ""+folder.getAbsolutePath()+ "/" + fileEntry.getName();
 							System.out.println(folder.getAbsolutePath()+ "/" + fileEntry.getName());
 						}
-							
 					}
 				}
 	    	}
 	  	}
-		
-
 }
+
+
+
+
+    
+
+
+

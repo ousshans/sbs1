@@ -1,3 +1,6 @@
 salam zak
 waah
 ba7 test:45,67
+
+UPDATE test SET nom = "ouhssain" , prenom = "zakariae" ;
+
