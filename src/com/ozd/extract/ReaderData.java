@@ -5,14 +5,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
+import java.io.*;
+import java.util.regex.*;
 
 
 //@Copyright Mac-de-Zak
 
 public class ReaderData {
+	
+	
+	
+	private static Pattern pattern_mot;
+    private static Matcher matcher_mot;
+
+        
+    
 	
 	static String path = "/Users/mac/Desktop/PFE";
 	//static String path = "/Users/mac/Desktop/PFE/cbgescli.4gl";
@@ -22,6 +33,14 @@ public class ReaderData {
 	static String temp = "";
 	
 	public static void main(String[] args) {
+        
+         
+        String regex_word = "[a-zA-Z0-9]{2,60}";
+        //String email ="salam56F";
+        Pattern pattern = Pattern.compile(regex_word);
+        /*Matcher matcher = pattern.matcher(email);
+        System.out.println(email +" : "+ matcher.matches());*/
+        
 		
 		System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
 		listFilesForFolder(folder);
@@ -35,7 +54,7 @@ public class ReaderData {
 		//Commentaires
 		
 		while(scan.hasNext()) {
-			
+			String requette;
 			switch (scan.next()) {
 			case "#":
 				System.out.println("ceci sont des commentaires");
@@ -47,13 +66,34 @@ public class ReaderData {
 				System.out.println("\t"+scan.next());
 				break;
 				
+			case "UPDATE":
+			requette = "\tUPDATE ";
+				requette+=scan.nextLine();
+				System.out.println("requette sql update\n"+requette);
+					
+				break;
+				
+			case "INSERT":
+				requette = "\tUPDATE ";
+					requette+=scan.nextLine();
+					System.out.println("requette sql update\n"+requette);
+						
+					break;
+					
+			case "DELETE":
+				requette = "\tUPDATE ";
+					requette+=scan.nextLine();
+					System.out.println("requette sql update\n"+requette);
+						
+					break;
+				
 			default:
 				break;
 			}
 		}
 		measureTime("Files.readAllLines()", ReaderData::readAllLines, path);
 	}
-		
+	
 		private static void measureTime(String name, Function<String, List<String>> fn, String path) {
 	        System.out.println("-----------------------------------------------------------");
 	        System.out.println("run: " + name);
@@ -94,4 +134,11 @@ public class ReaderData {
 	    	}
 	  	}
 }
+
+
+
+
+    
+
+
 
