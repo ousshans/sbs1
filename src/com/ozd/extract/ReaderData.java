@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.io.*;
 import java.util.regex.*;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 //@Copyright Mac-de-Zak
@@ -25,12 +29,13 @@ public class ReaderData {
         
     
 	
-	static String path = "/Users/mac/Desktop/PFE";
+	static String path = "F:\\WS\\Corona-time\\sbs\\sbs1\\src";
 	//static String path = "/Users/mac/Desktop/PFE/cbgescli.4gl";
 
 	//static String path = "";
 	public static File folder = new File(path);
 	static String temp = "";
+	public static HashMap<String,String> tableAndFields = new HashMap<>();
 	
 	public static void main(String[] args) {
         
@@ -59,14 +64,24 @@ public class ReaderData {
 			String requette;
 			String next = scan.next();
 			String nextLine = scan.nextLine();
+			System.out.println("next=>"+next);
+			System.out.println("nextLine=>"+nextLine);
+			System.out.println("walo");
 			switch (next) {
+			case  "DIM" :
+				System.out.println("\t DIM==>"+next);
+				break;
+				
 			case "#":
 				System.out.println("ceci sont des commentaires");
 				System.out.println("\t"+nextLine);
+				
 				break;
 			case "DEFINE":
 				System.out.println("ceci sont des variables");
-				System.out.println("\t"+nextLine);
+				System.out.println("\t==>"+nextLine);
+				System.out.println(findDimInString(nextLine));
+				extractTableAndFields(nextLine);
 				break;
 				
 			case "display":
@@ -86,21 +101,28 @@ public class ReaderData {
 					requette+=nextLine;
 					System.out.println("requette sql update\n"+requette);
 						
-					break;
+					break; 
 					
 			case "DELETE":
 				requette = "\tDELETE ";
+				
 					requette+=nextLine;
+					
 					System.out.println("requette sql update\n"+requette);
 						
 					break;
-				
 					
-			case "CALL":
-				requette = "\tCALL ";
-					requette+=nextLine;
-					System.out.println("Les fonctions appelés sont : \n"+requette);
-					break;
+			
+			
+					
+		//	case "CALL":
+			//	requette = "\tCALL ";
+				//	requette+=nextLine;
+					//System.out.println("Les fonctions appelés sont : \n"+requette);
+					//break;
+			
+			
+			
 			default:
 				//System.out.println("Rien trouvé\n");
 				break;
@@ -148,6 +170,28 @@ public class ReaderData {
 				}
 	    	}
 	  	}
+		
+		public static String findDimInString(String chaine) {
+			
+			List<String> elementsDeChaine = Arrays.asList(chaine.split("DIM")[1].split(" "));
+			return elementsDeChaine.get(1);
+		
+		}
+		
+		public static void extractTableAndFields(String chaine) {
+			
+			if(chaine.contains("LIKE")) {
+				Pattern pattern = Pattern.compile("\\w*\\.\\w*");
+				Matcher matcher = pattern.matcher(chaine);
+						if(matcher.find()) {
+							String[] s = matcher.group().split("\\.");
+							tableAndFields.put(s[0], s[1]);		
+						}
+			}
+				
+		}
+		
+		
 }
 
 
