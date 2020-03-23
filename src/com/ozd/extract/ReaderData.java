@@ -82,6 +82,7 @@ public class ReaderData {
 				System.out.println("\t==>"+nextLine);
 				System.out.println(findDimInString(nextLine));
 				extractTableAndFields(nextLine);
+				
 				break;
 				
 			case "display":
@@ -184,8 +185,9 @@ public class ReaderData {
 				Pattern pattern = Pattern.compile("\\w*\\.\\w*");
 				Matcher matcher = pattern.matcher(chaine);
 						if(matcher.find()) {
-							String[] s = matcher.group().split("\\.");
-							tableAndFields.put(s[0], s[1]);		
+							//String[] s = matcher.group().split(".");
+							//tableAndFields.put(s[0], s[1]);
+							//System.out.println(matcher.group().split());
 						}
 			}
 				
