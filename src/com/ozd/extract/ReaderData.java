@@ -18,33 +18,10 @@ import java.util.regex.*;
 
 public class ReaderData {
 	
-	
-	
-	private static Pattern pattern_mot;
-    private static Matcher matcher_mot;
-
-        
-    
-	
-	static String path = "/Users/mac/Desktop/PFE";
-	//static String path = "/Users/mac/Desktop/PFE/cbgescli.4gl";
-
-	//static String path = "";
-	public static File folder = new File(path);
-	static String temp = "";
-	
-	public static void main(String[] args) {
-        
-         
-        String regex_word = "[a-zA-Z0-9]{2,60}";
-        //String email ="salam56F";
-        Pattern pattern = Pattern.compile(regex_word);
-        /*Matcher matcher = pattern.matcher(email);
-        System.out.println(email +" : "+ matcher.matches());*/
-        
+	public ReaderData(String path) {
+		File folder = new File(path);
 		
-		System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
-		listFilesForFolder(folder);
+		//System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
 	    File file = new File(path);
 		Scanner scan = null;
 		try {
@@ -52,11 +29,9 @@ public class ReaderData {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		//Commentaires
 		
-		while(scan.hasNext()) {
-			
-			
+
+		while(scan.hasNext()) {	
 			String requette;
 			String next = scan.next();
 			String nextLine = scan.nextLine();
@@ -67,53 +42,38 @@ public class ReaderData {
 				break;
 			case "DEFINE":
 				System.out.println("ceci sont des variables");
-
-				System.out.println("\t==>"+nextLine);
-				System.out.println(findDimInString(nextLine));
-				extractTableAndFields(nextLine);
-				
 				System.out.println("\t"+nextLine);
-
 				break;
-				
 			case "display":
 				System.out.println("ceci sont des messages");
 				System.out.println("\t"+next);
 				break;
-				
 			case "UPDATE":
 			requette = "\tUPDATE ";
 				requette+=nextLine;
 				System.out.println("requette sql update\n"+requette);
-					
 				break;
-				
 			case "INSERT":
 				requette = "\tINSERT ";
 					requette+=nextLine;
 					System.out.println("requette sql update\n"+requette);
-						
 					break;
-					
 			case "DELETE":
 				requette = "\tDELETE ";
 					requette+=nextLine;
 					System.out.println("requette sql update\n"+requette);
-						
 					break;
-				
-					
 			case "CALL":
 				requette = "\tCALL ";
 					requette+=nextLine;
-					System.out.println("Les fonctions appelés sont : \n"+requette);
+					System.out.println("Les fonctions appel�s sont : \n"+requette);
 					break;
 			default:
-				//System.out.println("Rien trouvé\n");
+				//System.out.println("Rien trouv�\n");
 				break;
 			}
 		}
-		measureTime("Files.readAllLines()", ReaderData::readAllLines, path);
+	measureTime("Files.readAllLines()", ReaderData::readAllLines, path);
 	}
 	
 		private static void measureTime(String name, Function<String, List<String>> fn, String path) {
@@ -134,28 +94,6 @@ public class ReaderData {
 	        }
 	        return null;
 	    }
-		
-		
-		public static void listFilesForFolder(final File folder) {
-			for (final File fileEntry : folder.listFiles()) {
-				if (fileEntry.isDirectory()) {
-					// System.out.println("Reading files under the folder "+folder.getAbsolutePath());
-					listFilesForFolder(fileEntry);
-				}else {
-					if (fileEntry.isFile()) {
-						temp = fileEntry.getName();
-						//on choisi l'extesion avec l'aquelle on va selectionné pour scanné
-						String extension = "4gl";
-						if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals(extension))
-						{
-							path = ""+folder.getAbsolutePath()+ "/" + fileEntry.getName();
-							System.out.println(folder.getAbsolutePath()+ "/" + fileEntry.getName());
-						}
-					}
-				}
-	    	}
-	  	}
-
 		
 		public static String findDimInString(String chaine) {
 			
@@ -178,7 +116,6 @@ public class ReaderData {
 				
 		}
 		
-
 }
 
 
