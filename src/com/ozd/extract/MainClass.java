@@ -7,7 +7,8 @@ public class MainClass {
 
 		//    /Users/mac/Desktop/ReactNative
 		//    /Users/mac/Desktop/PFE
-		GetPaths allpaths = new GetPaths("/Users/mac/Desktop/PFE");
+		// F:\WS\Corona-time\sbs\sbs1\src
+		GetPaths allpaths = new GetPaths("F:\\WS\\Corona-time\\sbs\\sbs1\\src");
 	}
 
 }

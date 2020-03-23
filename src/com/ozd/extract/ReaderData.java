@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -18,7 +19,10 @@ import java.util.regex.*;
 
 public class ReaderData {
 	
+	static HashMap<String,String> tableAndFields = new HashMap<>();
+	
 	public ReaderData(String path) {
+		
 		File folder = new File(path);
 		
 		//System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
@@ -43,6 +47,9 @@ public class ReaderData {
 			case "DEFINE":
 				System.out.println("ceci sont des variables");
 				System.out.println("\t"+nextLine);
+				findDimInString(nextLine);
+				extractTableAndFields(nextLine);
+				System.out.println(tableAndFields);
 				break;
 			case "display":
 				System.out.println("ceci sont des messages");
@@ -96,10 +103,10 @@ public class ReaderData {
 	    }
 		
 		public static String findDimInString(String chaine) {
-			
+			if(chaine.contains("DIM")) {
 			List<String> elementsDeChaine = Arrays.asList(chaine.split("DIM")[1].split(" "));
 			return elementsDeChaine.get(1);
-		
+			}else return "";
 		}
 		
 		public static void extractTableAndFields(String chaine) {
@@ -108,9 +115,9 @@ public class ReaderData {
 				Pattern pattern = Pattern.compile("\\w*\\.\\w*");
 				Matcher matcher = pattern.matcher(chaine);
 						if(matcher.find()) {
-							//String[] s = matcher.group().split(".");
-							//tableAndFields.put(s[0], s[1]);
-							//System.out.println(matcher.group().split());
+							String ss = "fss.fsgg";
+							String[] s = ss.split("\\.");
+							tableAndFields.put(s[0], s[1]);
 						}
 			}
 				
