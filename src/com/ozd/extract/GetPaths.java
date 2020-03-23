@@ -7,13 +7,14 @@ import java.io.File;
 
 
 public class GetPaths {
-	//variable qu'il doit être initialiser par l'utilisateur (browse..)
-	static String path = "/Users/mac/Desktop/PFE";
-	public static File folder = new File(path);
+	
+	
 	static String temp = "";
+	public GetPaths(String path) {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//variable qu'il doit être initialiser par l'utilisateur (browse..)
+		File folder = new File(path);
+		
 		System.out.println("Reading files under the folder "+ folder.getAbsolutePath()+"\n");
 		listFilesForFolder(folder);
 	}
@@ -29,7 +30,12 @@ public class GetPaths {
 					//on choisi l'extesion avec l'aquelle on va selectionné pour scanné
 					String extension = "4gl";
 					if ((temp.substring(temp.lastIndexOf('.') + 1, temp.length()).toLowerCase()).equals(extension))
-						System.out.println(folder.getAbsolutePath()+ "/" + fileEntry.getName());
+					{
+						System.out.println("\n"+folder.getAbsolutePath()+ "/" + fileEntry.getName());
+						GetFileLastModified lastmodif = new GetFileLastModified(folder.getAbsolutePath()+ "/" + fileEntry.getName());
+						
+					}
+						
 				}
 			}
     	}
