@@ -46,11 +46,16 @@ public class GetFileLastModified
 		
 		
 		if( (yyyy_now == yyyy) && (mM == mM_now)) {
-			if((dd == dd_now) || (Math.abs(dd - dd_now) < 2))
+			if((dd == dd_now))
 			{
 				//les fichiers à scannés
-				System.out.println("had lfichier khas nscaniwh");
+				System.out.println("had lfichier khas nscaniwh neeefs nhar");
 				ReaderData datareader = new ReaderData(path);
+			}else if((Math.abs(dd - dd_now) < 2)) {
+				if(hh_now < hh) {
+					System.out.println("had lfichier khas nscaniwh machi nefs nhar mais 9l mn 24h");
+					ReaderData datareader = new ReaderData(path);
+				}
 			}else {
 				System.out.println("hadchi 9dim almerdi");
 			}
